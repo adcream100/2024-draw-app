@@ -11,6 +11,7 @@ interface DrawData {
   GiftName: string;
   AdMan: string;
   parsedData: string[];
+  code: string;
 }
 
 const useDrawData = () => {
@@ -43,20 +44,6 @@ const useDrawData = () => {
   useEffect(() => {
     updateData();
   }, [updateData]);
-
-  // useEffect(() => {
-  //   const fetchAndUpdate = async () => {
-  //     const response = await fetch(`${import.meta.env.VITE_API_URL}/awards/festival2024/`);
-  //     const updatedData = await response.json();
-  //     setData(updatedData);
-  //   };
-
-  //   const interval = setInterval(() => {
-  //     fetchAndUpdate();
-  //   }, 1000);
-
-  //   return () => clearInterval(interval);
-  // }, []);
 
   return { data, isLoading };
 };

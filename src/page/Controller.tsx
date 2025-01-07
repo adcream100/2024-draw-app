@@ -18,11 +18,6 @@ const Controller = () => {
     if (preservedValue !== null) {
       localStorage.setItem(preservedKey, preservedValue);
     }
-
-    // await fetch(`${import.meta.env.VITE_API_URL}/awards/festival2024/reset`, {
-    //   method: 'GET',
-    //   headers: { 'Content-Type': 'application/json' },
-    // });
   };
 
   return (

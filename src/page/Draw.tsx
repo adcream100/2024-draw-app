@@ -9,8 +9,9 @@ import { Swiper as SwiperClass } from 'swiper';
 const Draw = () => {
   useCheckHome();
   const { data, isLoading } = useDrawData();
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const swiperRef = useRef<SwiperClass | any>(null);
+  const swiperRef = useRef<SwiperClass | null | any>(null);
 
   useEffect(() => {
     const syncSlide = () => {
@@ -50,11 +51,13 @@ const Draw = () => {
           </h1>
           <div className="w-[1000px] mt-8">
             <Swiper className="mySwiper" ref={swiperRef}>
-              {data.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <DrawCard key={index} {...item} />
-                </SwiperSlide>
-              ))}
+              {data.map((item, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <DrawCard key={index} {...item} />
+                  </SwiperSlide>
+                );
+              })}
             </Swiper>
           </div>
         </div>
