@@ -6,56 +6,35 @@ interface DrawCardProps {
   GiftName: string;
   AdMan: string;
   parsedData: string[];
-  code?: string | any;
+  code: string;
 }
 
 const DrawCard = ({ ImageLink, DrawNo, GiftName, AdMan, parsedData, code }: DrawCardProps) => {
-  const [, setCurrentIndex] = useState(-1);
-  const [currentData, setCurrentData] = useState<{ code: string }[]>([]);
+  const [displayedWinner, setDisplayedWinner] = useState<string[]>([]);
+  const [index, setIndex] = useState(0);
 
-  const checkAndStartLogic = () => {
-    const storedCode = localStorage.getItem(code);
-    if (!storedCode) {
-      return;
+  useEffect(() => {
+    if (index < parsedData.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedWinner(prev => [...prev, parsedData[index]]);
+        setIndex(prev => prev + 1);
+      }, 1000);
+
+      return () => clearTimeout(timeout);
     }
+  }, [index, parsedData]);
 
-    if (parsedData.length === 0) return;
-
-    const interval = setInterval(() => {
-      setCurrentIndex(prevIndex => {
-        const nextIndex = prevIndex + 1;
-
-        if (nextIndex < parsedData.length) {
-          setCurrentData(prevData => [...prevData, { code: parsedData[nextIndex] }]);
-          return nextIndex;
-        } else {
-          clearInterval(interval);
-          return prevIndex;
-        }
-      });
-    }, 300);
-
-    return () => clearInterval(interval);
-  };
-
-  // 로컬 스토리지 키 변경 시 로직 재실행
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
       if (event.key === code) {
-        setCurrentData([]);
-        setCurrentIndex(-1);
-        checkAndStartLogic();
+        console.log('eventevent', event);
+        setDisplayedWinner([]);
+        setIndex(0);
       }
     };
-
     window.addEventListener('storage', handleStorageChange);
-
     return () => window.removeEventListener('storage', handleStorageChange);
   }, [code]);
-
-  useEffect(() => {
-    checkAndStartLogic();
-  }, [parsedData, code]);
 
   return (
     <div className="flex gap-8 items-center justify-center h-full">
@@ -69,9 +48,9 @@ const DrawCard = ({ ImageLink, DrawNo, GiftName, AdMan, parsedData, code }: Draw
           <p className="text-xl">{GiftName}</p>
         </div>
         <div className="mt-12 flex gap-4 flex-wrap items-center">
-          {currentData.map((item, i) => (
+          {displayedWinner.map((item, i) => (
             <div key={i} className="rounded-lg bg-[#1a2035] text-[#fff] text-[24px] p-2">
-              {item.code}
+              {item}
             </div>
           ))}
         </div>
