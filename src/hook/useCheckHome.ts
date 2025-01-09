@@ -7,8 +7,12 @@ const useCheckHome = () => {
   useEffect(() => {
     const checkStorage = () => {
       const value = localStorage.getItem('isDraw');
+      const isFinal = localStorage.getItem('final') === 'true';
       if (!value) {
         navigate('/');
+      }
+      if (isFinal) {
+        navigate('/final');
       }
     };
     checkStorage();

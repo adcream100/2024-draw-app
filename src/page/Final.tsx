@@ -29,16 +29,16 @@ const Draw = () => {
   }, []);
 
   return (
-    <div className="h-screen overflow-hidden flex justify-center items-center bg-[#ffff]">
+    <div className="h-screen overflow-hidden   bg-[#ffff]">
       <div
         className={`${
           isLoading && 'blur-sm'
         } flex flex-col justify-center items-center text-center`}
       >
-        <h1 className="text-[2rem] font-bold mb-6 text-black">
+        <h1 className="text-[2rem] font-bold  text-black mt-12">
           서울영상광고제를 후원해 주신 광고주께 감사드립니다.
         </h1>
-        <div className="w-full  p-12 mt-8 border-gray-700 flex justify-center gap-6">
+        <div className="w-full p-12 border-gray-700 flex justify-center gap-6">
           {data.map((item, index) => {
             return <FinalView key={index} {...item} />;
           })}

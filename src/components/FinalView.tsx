@@ -9,7 +9,7 @@ interface DrawCardProps {
 
 const FinalView = ({ ImageLink, DrawNo, GiftName, AdMan, parsedData }: DrawCardProps) => {
   return (
-    <div className="w-[400px] border border-gray-300 p-4 flex flex-col items-center flex  ">
+    <div className="w-[300px] border border-gray-300 p-4 flex flex-col items-center ">
       <div className="w-full h-[250px] bg-gray-200 flex items-center justify-center mb-4 overflow-hidden">
         <img src={ImageLink} alt="" className="w-full h-full object-cover" />
       </div>
@@ -20,7 +20,7 @@ const FinalView = ({ ImageLink, DrawNo, GiftName, AdMan, parsedData }: DrawCardP
       </div>
       <div className="mt-12 flex gap-4 flex-wrap items-center">
         {parsedData.map((item, i) => (
-          <div key={i} className="rounded-lg bg-[#1a2035] text-[#fff] text-[24px] p-2">
+          <div key={i} className="rounded-lg bg-[#1a2035] text-[#fff] text-[24px] p-1">
             {item}
           </div>
         ))}
