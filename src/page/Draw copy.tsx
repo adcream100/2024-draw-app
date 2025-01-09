@@ -5,7 +5,6 @@ import useDrawData from '../hook/useDrawData';
 import useCheckHome from '../hook/useCheckHome';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperClass } from 'swiper';
-import { useNavigate } from 'react-router-dom';
 
 const Draw = () => {
   useCheckHome();
@@ -28,13 +27,6 @@ const Draw = () => {
       window.removeEventListener('storage', syncSlide);
     };
   }, []);
-  const navigate = useNavigate();
-  useEffect(() => {
-    const isFinal = localStorage.getItem('final') === 'true';
-    if (!isFinal) {
-      navigate('/final'); // 값이 없으면 홈으로 리디렉션
-    }
-  }, [navigate]);
 
   return (
     <>
@@ -58,7 +50,10 @@ const Draw = () => {
             서울영상광고제를 후원해 주신 광고주께 감사드립니다.
           </h1>
           <div className="w-[1000px] mt-8 border">
-            <Swiper className="mySwiper" ref={swiperRef}>
+            {data.map((item, index) => {
+              return <DrawCard key={index} {...item} />;
+            })}
+            {/* <Swiper className="mySwiper" ref={swiperRef}>
               {data.map((item, index) => {
                 return (
                   <SwiperSlide key={index}>
@@ -66,7 +61,7 @@ const Draw = () => {
                   </SwiperSlide>
                 );
               })}
-            </Swiper>
+            </Swiper> */}
           </div>
         </div>
       </div>
